@@ -18,10 +18,10 @@ const typesColors = {
   system: "gray",
 }
 
-const tc = (theme, role) => {
+const tc = (role) => {
   const color = typesColors[role]
-  if (!color) return theme.colors.gray[2]
-  return theme.colors[color][2]
+  if (!color) return "var(--mantine-color-gray-2)"
+  return `var(--mantine-color-${color}-2)`
 }
 
 // Use for logging AI chat queries
@@ -30,9 +30,7 @@ export function ChatMessage({ data, compact = false }) {
     <Paper
       p={compact ? 0 : 12}
       pt={compact ? 0 : 8}
-      sx={(theme) => ({
-        backgroundColor: tc(theme, data?.role),
-      })}
+      style={{ backgroundColor: tc(data?.role) }}
     >
       {!compact && (
         <Text size="xs" color={typesColors[data?.role] + ".9"}>
@@ -50,7 +48,7 @@ export function ChatMessage({ data, compact = false }) {
             <Code color={typesColors[data?.role]} block>
               <Text w={300} color={typesColors[data?.role]} mb="xs">
                 {`function call: `}
-                <Text span weight="bolder">
+                <Text span fw="bolder">
                   {data?.functionCall?.name}
                 </Text>
               </Text>

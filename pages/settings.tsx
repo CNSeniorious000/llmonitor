@@ -69,8 +69,8 @@ function Invite() {
           innerProps: {},
         })
       }
-      sx={{ float: "right" }}
-      leftIcon={<IconUserPlus size={16} />}
+      style={{ float: "right" }}
+      leftSection={<IconUserPlus size={16} />}
     >
       Invite
     </Button>
@@ -134,7 +134,7 @@ export default function AppAnalytics() {
             </Stack>
           </Card>
           <Card withBorder p={0}>
-            <Group position="apart" align="center" p="lg">
+            <Group justify="space-between" align="center" p="lg">
               <Title order={3}>Team</Title>
               <Invite />
             </Group>
@@ -176,38 +176,41 @@ export default function AppAnalytics() {
                 </Alert>
               </Center>
             </Overlay>
-            <Stack spacing="md">
+            <Stack gap="md">
               <Title order={4}>Export dataset</Title>
 
-              <Text weight="semibold">Select conditions:</Text>
+              <Text fw="semibold">Select conditions:</Text>
 
-              <Group spacing="xs">
-                <Button variant="outline" compact>
+              <Group gap="xs">
+                <Button variant="outline" size="compact-md">
                   model = "gpt-4"
                 </Button>
 
                 <Text>and</Text>
-                <Button variant="outline" compact>
+                <Button variant="outline" size="compact-md">
                   feedback: "thumbs" = "up"
                 </Button>
 
                 <Text>and</Text>
-                <Button variant="outline" compact>
+                <Button variant="outline" size="compact-md">
                   contains tag: "training"
                 </Button>
               </Group>
 
-              <Text weight="semibold">Download:</Text>
+              <Text fw="semibold">Download:</Text>
 
               <Group>
-                <Button variant="light" leftIcon={<IconDownload size={16} />}>
+                <Button
+                  variant="light"
+                  leftSection={<IconDownload size={16} />}
+                >
                   .csv
                 </Button>
                 <Button
                   variant="light"
                   color="cyan"
-                  leftIcon={<IconDownload size={16} />}
-                  rightIcon={<IconBrandOpenai size={16} />}
+                  leftSection={<IconDownload size={16} />}
+                  rightSection={<IconBrandOpenai size={16} />}
                 >
                   OpenAI .jsonl
                 </Button>
@@ -215,7 +218,7 @@ export default function AppAnalytics() {
             </Stack>
           </Card>
           {!profile?.team_owner && (
-            <Card withBorder p="lg" sx={{ overflow: "visible" }}>
+            <Card withBorder p="lg" style={{ overflow: "visible" }}>
               <Title mb="md" order={4}>
                 Danger Zone
               </Title>

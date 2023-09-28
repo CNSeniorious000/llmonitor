@@ -149,7 +149,7 @@ export default function AgentRun({}) {
             {focusedRun && (
               <Stack>
                 <Group>
-                  <Text weight="bold">Input</Text>
+                  <Text fw="bold">Input</Text>
                   {focusedRun.type === "llm" && (
                     <TokensBadge tokens={focusedRun.prompt_tokens} />
                   )}
@@ -158,7 +158,7 @@ export default function AgentRun({}) {
                 {focusedRun.output && (
                   <>
                     <Group>
-                      <Text weight="bold">Output</Text>
+                      <Text fw="bold">Output</Text>
                       {focusedRun.type === "llm" && (
                         <TokensBadge tokens={focusedRun.completion_tokens} />
                       )}

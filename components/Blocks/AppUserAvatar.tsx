@@ -1,5 +1,5 @@
 import { formatAppUser } from "@/utils/format"
-import { Anchor, Avatar, Group, MantineNumberSize } from "@mantine/core"
+import { Anchor, Avatar, AvatarProps, Group, MantineSize } from "@mantine/core"
 import { memo } from "react"
 
 const colors = [
@@ -21,7 +21,7 @@ function AppUserAvatar({
   withName = false,
 }: {
   user: any
-  size?: MantineNumberSize
+  size?: AvatarProps["size"]
   withName?: boolean
 }) {
   // use user.id (int) as seed for random color
@@ -32,7 +32,7 @@ function AppUserAvatar({
   const nameOrEmail = formatAppUser(user)
 
   return (
-    <Group spacing="sm">
+    <Group gap="sm">
       <Avatar lh={0.4} radius="xl" color={color} size={size}>
         {nameOrEmail?.slice(0, 2)?.toUpperCase()}
       </Avatar>

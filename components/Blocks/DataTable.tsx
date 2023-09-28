@@ -111,7 +111,7 @@ export default function DataTable({
                     >
                       {header.isPlaceholder ? null : (
                         <Group
-                          spacing={4}
+                          gap={4}
                           onClick={header.column.getToggleSortingHandler()}
                           style={
                             header.column.getCanSort()

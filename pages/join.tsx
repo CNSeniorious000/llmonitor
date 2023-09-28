@@ -50,9 +50,9 @@ function TeamFull({ owner }) {
   return (
     <Container py={100} size={600}>
       <NextSeo title="Signup" />
-      <Stack align="center" spacing={30}>
+      <Stack align="center" gap={30}>
         <IconAnalyze color={"#206dce"} size={60} />
-        <Title order={2} weight={700} size={40} ta="center">
+        <Title order={2} fw={700} size={40} ta="center">
           Sorry, {owner}'s team is full
         </Title>
 
@@ -189,23 +189,23 @@ export default function Join({ teamSize }) {
     <Container py={100} size={600}>
       <NextSeo title="Join" />
 
-      <Stack align="center" spacing={50}>
+      <Stack align="center" gap={50}>
         <Stack align="center">
           <IconAnalyze color={"#206dce"} size={60} />
-          <Title order={2} weight={700} size={40} ta="center">
+          <Title order={2} fw={700} size={40} ta="center">
             Join {owner}'s team
           </Title>
         </Stack>
         <Paper radius="md" p="xl" withBorder miw={350}>
           <form onSubmit={form.onSubmit(handleSignup)}>
-            <Stack spacing="xl">
+            <Stack gap="xl">
               {step === 1 && (
                 <>
-                  <Title order={2} weight={700} ta="center">
+                  <Title order={2} fw={700} ta="center">
                     Get Started
                   </Title>
                   <TextInput
-                    icon={<IconAt size={16} />}
+                    leftSection={<IconAt size={16} />}
                     label="Email"
                     type="email"
                     autoComplete="email"
@@ -241,7 +241,7 @@ export default function Join({ teamSize }) {
 
               {step === 2 && (
                 <>
-                  <Title order={2} weight={700} ta="center">
+                  <Title order={2} fw={700} ta="center">
                     Almost there...
                   </Title>
 
@@ -289,11 +289,11 @@ export default function Join({ teamSize }) {
 
                   <Stack align="center">
                     <IconAnalyze color={"#206dce"} size={60} />
-                    <Title order={2} weight={700} size={40} ta="center">
+                    <Title order={2} fw={700} size={40} ta="center">
                       You're all set 🎉
                     </Title>
 
-                    <Text size="lg" mt="xs" mb="xl" weight={500}>
+                    <Text size="lg" mt="xs" mb="xl" fw={500}>
                       Check your emails for the confirmation to open the
                       dashboard.
                     </Text>
@@ -308,7 +308,7 @@ export default function Join({ teamSize }) {
                             window._gs("chat", "show")
                           } catch (e) {}
                         }}
-                        rightIcon={<IconMessageBolt size={18} />}
+                        rightSection={<IconMessageBolt size={18} />}
                       >
                         Chat
                       </Button>
@@ -318,7 +318,7 @@ export default function Join({ teamSize }) {
                         color="teal.8"
                         component="a"
                         href="mailto:vince@llmonitor.com"
-                        rightIcon={<IconMail size={18} />}
+                        rightSection={<IconMail size={18} />}
                       >
                         Email
                       </Button>
@@ -329,7 +329,7 @@ export default function Join({ teamSize }) {
                         target="_blank"
                         component="a"
                         href="https://discord.gg/8PafSG58kK"
-                        rightIcon={<IconBrandDiscord size={18} />}
+                        rightSection={<IconBrandDiscord size={18} />}
                       >
                         Discord
                       </Button>
@@ -340,7 +340,7 @@ export default function Join({ teamSize }) {
                         target="_blank"
                         component="a"
                         href="https://savvycal.com/vince/chat"
-                        rightIcon={<IconCalendar size={18} />}
+                        rightSection={<IconCalendar size={18} />}
                       >
                         Call with founder
                       </Button>

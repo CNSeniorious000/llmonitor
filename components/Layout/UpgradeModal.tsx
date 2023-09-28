@@ -32,30 +32,26 @@ export const UpgradeBody = () => {
     <>
       <Stack align="center" ta="center">
         <IconAnalyze color={"#206dce"} size={60} />
-        <Title order={2} weight={700} size={40} ta="center">
+        <Title order={2} fw={700} size={40} ta="center">
           Limited time offer
         </Title>
 
-        <Text size="xl" mt="xs" weight={500}>
+        <Text size="xl" mt="xs" fw={500}>
           Upgrade now and lock in{" "}
           <Mark>{` the lowest price we'll ever offer. `}</Mark>
         </Text>
-        <Text size="lg" mt="xs" mb="xl" weight={500}>
+        <Text size="lg" mt="xs" mb="xl" fw={500}>
           Unlock unlimited usage & team access, support development and get
           involved in the product's future.
         </Text>
       </Stack>
 
-      <SimpleGrid
-        cols={2}
-        breakpoints={[{ maxWidth: "sm", cols: 1, spacing: "sm" }]}
-        spacing="md"
-      >
+      <SimpleGrid cols={{ base: 1, sm: 2 }} spacing={{ base: "sm", sm: "md" }}>
         <Card p="xl" withBorder shadow="md">
-          <Group spacing={6}>
+          <Group gap={6}>
             <Text
-              transform="uppercase"
-              weight="bold"
+              tt="uppercase"
+              fw="bold"
               variant="gradient"
               gradient={{ from: "indigo", to: "cyan", deg: 45 }}
             >
@@ -64,13 +60,13 @@ export const UpgradeBody = () => {
             <Badge variant="outline">-60%</Badge>
           </Group>
 
-          <Group my={20} align="center" spacing={10}>
+          <Group my={20} align="center" gap={10}>
             <Title order={3} size={30}>
-              <Text span td="line-through" size={20}>
+              <Text span td="line-through" size="20">
                 $69
               </Text>
               {` 29$`}
-              <Text span size={20}>
+              <Text span size="20">
                 / mo
               </Text>
             </Title>
@@ -105,10 +101,10 @@ export const UpgradeBody = () => {
           </Button>
         </Card>
         <Card p="xl" withBorder>
-          <Group spacing={6}>
+          <Group gap={6}>
             <Text
-              transform="uppercase"
-              weight="bold"
+              tt="uppercase"
+              fw="bold"
               variant="gradient"
               gradient={{ from: "teal", to: "lime", deg: 45 }}
             >
@@ -119,9 +115,9 @@ export const UpgradeBody = () => {
             </Badge>
           </Group>
 
-          <Group my={20} align="center" spacing={10}>
+          <Group my={20} align="center" gap={10}>
             <Title order={3} size={30}>
-              <Text span td="line-through" size={20}>
+              <Text span td="line-through" size="20">
                 {`$1999`}
               </Text>
               {` $599`}

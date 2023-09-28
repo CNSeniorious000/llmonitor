@@ -22,7 +22,7 @@ export const SuperCopyButton = ({ value }) => (
 
 export default function CopyText({ color = "violet", value }) {
   return (
-    <Group spacing={0} display="inline-flex">
+    <Group gap={0} display="inline-flex">
       <Code ml={5} color={color}>
         {value}
       </Code>

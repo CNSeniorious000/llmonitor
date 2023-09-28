@@ -31,7 +31,7 @@ export default function UserDetails({}) {
               <AppUserAvatar user={user} />
               <Title order={3}>{formatAppUser(user)}</Title>
             </Group>
-            <Group spacing={3}>
+            <Group gap={3}>
               <Text>ID:</Text>
               <CopyText value={user?.external_id} />
             </Group>

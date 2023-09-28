@@ -74,8 +74,8 @@ export default function Analytics() {
   return (
     <Container size="lg" my="lg">
       <NextSeo title="Analytics" />
-      <Stack spacing={40}>
-        <Group position="apart">
+      <Stack gap={40}>
+        <Group justify="space-between">
           <Title>Analytics</Title>
           <SegmentedControl
             w={300}
@@ -92,7 +92,7 @@ export default function Analytics() {
 
         <SimpleGrid
           cols={3}
-          breakpoints={[{ maxWidth: "md", cols: 1, spacing: "sm" }]}
+          // breakpoints={[{ maxWidth: "md", cols: 1, spacing: "sm" }]}
           spacing="md"
         >
           {usage && (
@@ -129,7 +129,7 @@ export default function Analytics() {
                   {
                     name: "User",
                     render: (u, row) => (
-                      <Group my={-4} spacing="sm">
+                      <Group my={-4} gap="sm">
                         <AppUserAvatar size={30} user={row} />
                         {formatAppUser(row)}
                       </Group>

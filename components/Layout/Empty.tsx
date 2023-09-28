@@ -24,7 +24,7 @@ export default function Empty({
   return (
     <Center mih="70vh">
       <Card withBorder p={50} w="fit-content">
-        <Stack align="start" spacing="xl">
+        <Stack align="start" gap="xl">
           <ThemeIcon size={72} radius="lg">
             {Icon && <Icon size={48} />}
           </ThemeIcon>
@@ -49,7 +49,7 @@ export default function Empty({
           <Group>
             <Button
               size="lg"
-              leftIcon={<IconMessage size={22} />}
+              leftSection={<IconMessage size={22} />}
               color="teal"
               component="a"
               href="mailto:vince@llmonitor.com"
@@ -58,7 +58,7 @@ export default function Empty({
             </Button>
             <Button
               size="lg"
-              leftIcon={<IconBrandDiscord size={22} />}
+              leftSection={<IconBrandDiscord size={22} />}
               color="indigo"
               component="a"
               href="https://discord.gg/8PafSG58kK"

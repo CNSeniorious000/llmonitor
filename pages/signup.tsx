@@ -137,12 +137,12 @@ function SignupPage() {
     <Container py={100} size={800}>
       <NextSeo title="Sign Up" />
 
-      <Stack align="center" spacing={50}>
+      <Stack align="center" gap={50}>
         {step < 3 && (
           <>
             <Stack align="center">
               <IconAnalyze color={"#206dce"} size={60} />
-              <Title order={2} weight={700} size={40} ta="center">
+              <Title order={2} fw={700} size={40} ta="center">
                 llmonitor cloud
               </Title>
             </Stack>
@@ -150,14 +150,14 @@ function SignupPage() {
               <Grid.Col span={12} md={6}>
                 <Paper radius="md" p="xl" withBorder>
                   <form onSubmit={form.onSubmit(handleSignup)}>
-                    <Stack spacing="xl">
+                    <Stack gap="xl">
                       {step === 1 && (
                         <>
-                          <Title order={2} weight={700} ta="center">
+                          <Title order={2} fw={700} ta="center">
                             Get Started
                           </Title>
                           <TextInput
-                            icon={<IconAt size={16} />}
+                            leftSection={<IconAt size={16} />}
                             label="Email"
                             type="email"
                             autoComplete="email"
@@ -198,7 +198,7 @@ function SignupPage() {
 
                       {step === 2 && (
                         <>
-                          <Title order={2} weight={700} ta="center">
+                          <Title order={2} fw={700} ta="center">
                             Almost there...
                           </Title>
 
@@ -255,7 +255,7 @@ function SignupPage() {
               <Grid.Col span={12} md={6}>
                 <Box>
                   <List
-                    spacing="xl"
+                    gap="xl"
                     size="md"
                     icon={
                       <ThemeIcon
@@ -269,7 +269,7 @@ function SignupPage() {
                     }
                   >
                     <List.Item>
-                      <Text weight="bold">Free usage every month</Text>
+                      <Text fw="bold">Free usage every month</Text>
                       <Text>
                         1K free events per day. Forever.
                         <br />
@@ -277,16 +277,14 @@ function SignupPage() {
                       </Text>
                     </List.Item>
                     <List.Item>
-                      <Text weight="bold">
-                        Start collecting data immediately
-                      </Text>
+                      <Text fw="bold">Start collecting data immediately</Text>
                       <Text>
                         Integrate with developer-friendly SDKs, with native
                         support for LangChain and OpenAI.
                       </Text>
                     </List.Item>
                     <List.Item>
-                      <Text weight="bold">No configuration required</Text>
+                      <Text fw="bold">No configuration required</Text>
                       <Text>
                         Start getting insights without any complicated setup.
                       </Text>
@@ -304,11 +302,11 @@ function SignupPage() {
 
             <Stack align="center">
               <IconAnalyze color={"#206dce"} size={60} />
-              <Title order={2} weight={700} size={40} ta="center">
+              <Title order={2} fw={700} size={40} ta="center">
                 You're all set 🎉
               </Title>
 
-              <Text size="lg" mt="xs" mb="xl" weight={500}>
+              <Text size="lg" mt="xs" mb="xl" fw={500}>
                 Check your emails for the confirmation to open the dashboard.
               </Text>
 

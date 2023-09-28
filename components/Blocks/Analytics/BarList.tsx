@@ -1,4 +1,4 @@
-import { Group, Progress, Table, Text } from "@mantine/core"
+import { Group, Progress, Table, Text, Tooltip } from "@mantine/core"
 
 type BarListProps = {
   data: any[]
@@ -33,7 +33,7 @@ const BarList = ({
   return (
     <>
       {customMetric ? (
-        <Group align="end" my="lg" spacing={8}>
+        <Group align="end" my="lg" gap={8}>
           <Text fw={700} fz={30} lh={1}>
             {customMetric.value}
           </Text>
@@ -42,12 +42,12 @@ const BarList = ({
           </Text>
         </Group>
       ) : (
-        <Group spacing="lg">
+        <Group gap="lg">
           {dataColumns.map(({ key, name, render }, i) => {
             const total = data.reduce((acc, item) => acc + (item[key] || 0), 0)
 
             return (
-              <Group align="end" my="lg" spacing={8} key={i}>
+              <Group align="end" my="lg" gap={8} key={i}>
                 <Text fw={700} fz={30} lh={1}>
                   {render ? render(total) : total}
                 </Text>
@@ -63,7 +63,7 @@ const BarList = ({
       <Table
         cellPadding={0}
         horizontalSpacing={0}
-        withBorder={false}
+        withRowBorders={false}
         verticalSpacing={10}
         variant="unstyled"
       >
@@ -87,17 +87,19 @@ const BarList = ({
                       <Progress
                         size="lg"
                         h={25}
-                        sections={item.barSections?.map(
-                          ({ count, color, tooltip }) => ({
-                            value: (count / mainTotal) * 100,
-                            color,
-                            tooltip,
-                          })
-                        )}
                         w={"90%"}
                         radius="md"
                         value={(item[main.key] / mainTotal) * 100}
-                      />
+                      >
+                        {item.barSections?.map(({ count, color, tooltip }) => (
+                          <Tooltip label={tooltip}>
+                            <Progress.Section
+                              value={(count / mainTotal) * 100}
+                              color={color}
+                            />
+                          </Tooltip>
+                        ))}
+                      </Progress>
                       <Text>{item.value}</Text>
                     </td>
                   ) : (

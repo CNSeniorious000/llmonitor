@@ -85,7 +85,7 @@ export default function Billing() {
         )}
 
         <Card withBorder radius="md" padding="xl">
-          <Stack spacing="sm">
+          <Stack gap="sm">
             <Text fz="md" fw={700} c="dimmed">
               Monthly Requests Allowance
             </Text>
@@ -103,7 +103,7 @@ export default function Billing() {
         </Card>
 
         <Card withBorder radius="md" padding="xl">
-          <Stack spacing="sm">
+          <Stack gap="sm">
             <Text fz="md" fw={700} c="dimmed">
               Seat Allowance
             </Text>

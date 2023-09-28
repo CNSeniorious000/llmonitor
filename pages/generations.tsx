@@ -83,15 +83,15 @@ export default function Generations() {
               <Text size="sm">Temperature: {selected.params?.temperature}</Text>
             )}
 
-            <Group position="apart">
-              <Text weight="bold" size="sm">
+            <Group justify="space-between">
+              <Text fw="bold" size="sm">
                 Input
               </Text>
               <TokensBadge tokens={selected.prompt_tokens} />
             </Group>
             <SmartViewer data={selected.input} />
-            <Group position="apart">
-              <Text weight="bold" size="sm">
+            <Group justify="space-between">
+              <Text fw="bold" size="sm">
                 {selected.error ? "Error" : "Output"}
               </Text>
               <TokensBadge tokens={selected.completion_tokens} />

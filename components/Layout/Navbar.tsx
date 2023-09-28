@@ -1,187 +1,123 @@
-import analytics from "@/utils/analytics"
-import errorHandler from "@/utils/errorHandler"
-import { useApps, useCurrentApp, useTeam } from "@/utils/supabaseHooks"
 import {
-  Anchor,
-  Button,
-  Flex,
+  ActionIcon,
+  AppShell,
+  AppShellSection,
   Group,
-  Header,
-  Popover,
-  Select,
-  Text,
-  Textarea,
+  Menu,
+  Stack,
+  ThemeIcon,
+  Tooltip,
 } from "@mantine/core"
-import { useForm } from "@mantine/form"
-import { modals } from "@mantine/modals"
-import { notifications } from "@mantine/notifications"
-import { useUser } from "@supabase/auth-helpers-react"
 
 import {
-  IconAnalyze,
-  IconHelp,
-  IconMessage,
-  IconStarFilled,
+  IconBrandOpenai,
+  IconFileInvoice,
+  IconGraph,
+  IconLogout,
+  IconMessages,
+  IconRobot,
+  IconSettings,
+  IconStethoscope,
+  IconUsers,
 } from "@tabler/icons-react"
 
+import { useSessionContext } from "@supabase/auth-helpers-react"
+
+import UserAvatar from "@/components/Blocks/UserAvatar"
+import { useProfile } from "@/utils/supabaseHooks"
 import Link from "next/link"
-import { useEffect, useState } from "react"
+import Router, { useRouter } from "next/router"
 
-const sendMessage = async ({ message }) => {
-  const currentPage = window.location.pathname
+const menu = [
+  { label: "Analytics", icon: IconGraph, link: "/analytics" },
+  { label: "Traces", icon: IconRobot, link: "/traces" },
+  { label: "Generations", icon: IconBrandOpenai, link: "/generations" },
+  { label: "Users", icon: IconUsers, link: "/users" },
+  { label: "Tests", icon: IconStethoscope, link: "/tests" },
+  { label: "Chats", icon: IconMessages, link: "/chats" },
+  { label: "Settings", icon: IconSettings, link: "/settings" },
+]
 
-  return await errorHandler(
-    fetch("/api/user/feedback", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ message, currentPage }),
-    })
-  )
-}
-
-const Feedback = ({}) => {
-  const [loading, setLoading] = useState(false)
-
-  const form = useForm({
-    initialValues: {
-      feedback: "",
-    },
-
-    validate: {
-      feedback: (value) =>
-        value.trim().length > 5 ? null : "Tell us a bit more",
-    },
-  })
-
-  const send = async ({ feedback }) => {
-    setLoading(true)
-
-    const ok = await sendMessage({ message: feedback })
-
-    setLoading(false)
-
-    if (ok) {
-      notifications.show({
-        title: "Feedback sent",
-        message: "Thank you for your feedback! We will get back to you soon.",
-        color: "blue",
-      })
-    }
-  }
-
+function NavbarLink({ icon: Icon, label, link, active }) {
   return (
-    <form onSubmit={form.onSubmit(send)}>
-      <Textarea
-        placeholder="What can we do better?"
-        inputMode="text"
-        minRows={4}
-        {...form.getInputProps("feedback")}
-      />
-
-      <Group position="right" mt="xs">
-        <Button type="submit" size="xs" color="dark" loading={loading}>
-          Send
-        </Button>
-      </Group>
-    </form>
+    <Tooltip label={label} withArrow position="right">
+      <Link href={link}>
+        <ThemeIcon
+          variant={active ? "filled" : "light"}
+          color={"blue.4"}
+          size="lg"
+        >
+          <Icon size="1.1rem" />
+        </ThemeIcon>
+      </Link>
+    </Tooltip>
   )
 }
 
 export default function Navbar() {
-  const { app, setAppId } = useCurrentApp()
+  const router = useRouter()
 
-  const { apps, loading } = useApps()
+  const { supabaseClient } = useSessionContext()
 
-  const user = useUser()
-  const { team } = useTeam()
+  const { profile } = useProfile()
 
-  useEffect(() => {
-    if (user) {
-      analytics.identify(user.id, {
-        email: user.email,
-        name: user.user_metadata?.name,
-      })
-    }
-  }, [user])
+  const isActive = (link: string) => router.pathname.startsWith(link)
 
-  // Select first app if none selected
-  useEffect(() => {
-    if (!app && apps?.length && !loading) {
-      setAppId(apps[0].id)
-    }
-  }, [app, apps, loading])
+  const links = menu.map((item) => (
+    <NavbarLink {...item} active={isActive(item.link)} key={item.label} />
+  ))
 
   return (
-    <Header height={60} p="md">
-      <Flex align="center" justify="space-between" h="100%">
-        <Group>
-          <Anchor component={Link} href="/">
-            <Group spacing="sm">
-              <IconAnalyze />
-              <Text weight="bold">llmonitor</Text>
-            </Group>
-          </Anchor>
+    <AppShell.Navbar px="md" py="xl">
+      <Stack justify="space-between" h="full">
+        <Stack gap="xl" align="center">
+          {links}
+        </Stack>
 
-          {!loading && user && apps?.length && (
-            <Select
-              size="xs"
-              placeholder="Select an app"
-              value={app?.id}
-              onChange={(id) => setAppId(id)}
-              data={apps.map((app) => ({ value: app.id, label: app.name }))}
-            />
-          )}
-        </Group>
-
-        <Group>
-          <Popover
-            width={400}
-            position="bottom"
-            arrowSize={10}
-            withArrow
-            shadow="sm"
-            trapFocus
-          >
-            <Popover.Target>
-              <Button size="xs" leftIcon={<IconMessage size={18} />}>
-                Feedback
-              </Button>
-            </Popover.Target>
-            <Popover.Dropdown>
-              <Feedback />
-            </Popover.Dropdown>
-          </Popover>
-
-          {team?.plan === "free" && (
-            <Button
-              onClick={() =>
-                modals.openContextModal({
-                  modal: "upgrade",
-                  size: 800,
-                  innerProps: {},
-                })
-              }
-              size="xs"
-              variant="gradient"
-              gradient={{ from: "#0788ff", to: "#9900ff", deg: 30 }}
-              leftIcon={<IconStarFilled size={16} />}
-            >
-              Upgrade
-            </Button>
-          )}
-
-          <Button
-            component="a"
-            href="https://llmonitor.com/docs"
-            size="xs"
-            target="_blank"
-            variant="outline"
-            leftIcon={<IconHelp size={18} />}
-          >
-            Docs
-          </Button>
-        </Group>
-      </Flex>
-    </Header>
+        {profile && (
+          <AppShellSection py="sm">
+            <Stack gap="sm" align="center">
+              <Menu
+                trigger="hover"
+                shadow="md"
+                width={200}
+                position="top"
+                withArrow
+              >
+                <Menu.Target>
+                  <ActionIcon>
+                    <UserAvatar profile={profile} />
+                  </ActionIcon>
+                </Menu.Target>
+                <Menu.Dropdown ml="lg">
+                  <Menu.Label>Account</Menu.Label>
+                  {process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY && (
+                    <Menu.Item
+                      leftSection={<IconFileInvoice size={16} />}
+                      onClick={() => {
+                        Router.push("/billing")
+                      }}
+                    >
+                      Billing
+                    </Menu.Item>
+                  )}
+                  <Menu.Item
+                    color="red"
+                    leftSection={<IconLogout size={16} />}
+                    onClick={() => {
+                      supabaseClient.auth.signOut().then(() => {
+                        Router.push("/login")
+                      })
+                    }}
+                  >
+                    Logout
+                  </Menu.Item>
+                </Menu.Dropdown>
+              </Menu>
+            </Stack>
+          </AppShellSection>
+        )}
+      </Stack>
+    </AppShell.Navbar>
   )
 }
