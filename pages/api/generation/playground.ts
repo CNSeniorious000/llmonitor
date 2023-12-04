@@ -2,26 +2,11 @@ import { OpenAIStream, StreamingTextResponse } from "ai"
 
 import OpenAI from "openai"
 
-import { completion } from "litellm"
+// import { completion } from "litellm"
 import { ensureIsLogged } from "@/lib/api/ensureAppIsLogged"
 import { edgeWrapper } from "@/lib/api/edgeHelpers"
 
 export const runtime = "edge"
-
-const OPENROUTER_MODELS = [
-  "mistralai/mistral-7b-instruct",
-  "openai/gpt-4-32k",
-  "openchat/openchat-7b",
-  "teknium/openhermes-2.5-mistral-7b",
-  "open-orca/mistral-7b-openorca",
-  "perplexity/pplx-70b-chat",
-  "perplexity/pplx-7b-chat",
-  "google/palm-2-chat-bison",
-  "meta-llama/llama-2-13b-chat",
-  "meta-llama/llama-2-70b-chat",
-]
-
-const ANTHROPIC_MODELS = ["claude-2", "claude-2.0", "claude-instant-v1"]
 
 const convertInputToOpenAIMessages = (input: any[]) => {
   return input.map(({ role, text, functionCall, toolCalls, name }) => {
@@ -68,23 +53,13 @@ export default edgeWrapper(async function handler(req: Request) {
 
   let method
 
-  if (ANTHROPIC_MODELS.includes(model)) {
-    method = completion
+  if (model.startsWith("claude")) {
+    // method = completion
   } else {
-    const openAIparams = OPENROUTER_MODELS.includes(model)
-      ? {
-          apiKey: process.env.OPENROUTER_API_KEY,
-          baseURL: "https://openrouter.ai/api/v1",
-          defaultHeaders: {
-            "HTTP-Referer": "https://llmonitor.com",
-            "X-Title": `LLMonitor.com`,
-          },
-        }
-      : {
-          apiKey: process.env.OPENAI_API_KEY,
-        }
-
-    const openai = new OpenAI(openAIparams)
+    const openai = new OpenAI({
+      baseURL: process.env.OPENAI_BASE_URL,
+      apiKey: "",
+    })
 
     method = openai.chat.completions.create.bind(openai.chat.completions)
   }

@@ -69,6 +69,8 @@ export const useProfile = () => {
     isLoading,
   } = useQuery(user ? query : null, hardOptions)
 
+  if (profile) profile.org.plan = "unlimited"
+
   const users = profile?.org.users
     ?.sort((a, b) => {
       if (a.role === "admin" && b.role === "member") return -1
