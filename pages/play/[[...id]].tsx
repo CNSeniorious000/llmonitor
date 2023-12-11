@@ -291,7 +291,7 @@ function Playground() {
           </Grid.Col>
           <Grid.Col span={3}>
             <Card withBorder style={{ overflow: "visible" }}>
-              <Stack>
+              <Stack style={{ zIndex: 0 }}>
                 <ParamItem
                   name="Model"
                   value={
@@ -318,6 +318,7 @@ function Playground() {
                       step={0.1}
                       decimalScale={2}
                       size="xs"
+                      style={{ zIndex: 0 }}
                       value={run.params?.temperature}
                       w={90}
                       onChange={(value) =>
